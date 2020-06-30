@@ -3,8 +3,10 @@
 
 [学習者の方の質問を募集しています！](https://forms.gle/aDw85bVsuJ7RPD2PA)
 
-## これはオブジェクト指向関連のソースコードへのリンクです
+## オブジェクト指向関連のソースコードへのリンク
 
 - [インターフェース](../src/20200602_interface.ts) | [解説](https://youtu.be/vOCwaDiGdQY)
 - [抽象クラス](../src/20200609_abstract.ts) | [解説](https://www.youtube.com/watch?v=H7WHK71tzDQ)
 - [DI](../src/20200623_di.ts) | [解説](https://www.youtube.com/watch?v=4wS6RwG9W_s)
+
+## DB関連のソースコードへのリンク
