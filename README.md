@@ -11,5 +11,6 @@
 
 ## JavaScript関連のソースコードへのリンク
 - [Ajax](../src/20200704_ajax) | [解説](https://youtu.be/AfAxYJOM8rE) 
+- [関数による処理の共通化](../src/20200711_user_defined_function) | [解説](https://youtu.be/avdOTG1eAK0)
 
 ## DB関連のソースコードへのリンク
