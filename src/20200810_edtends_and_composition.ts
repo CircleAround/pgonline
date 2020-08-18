@@ -35,11 +35,11 @@ class SimpleBookFormatter implements BookFormatter {
 class JsonArranger implements Arranger {
   private formatter: BookFormatter
 
-  public constructor(formatter: BookFormatter) {
+  constructor(formatter: BookFormatter) {
     this.formatter = formatter;
   }
 
-  public arrange(json):string {
+  arrange(json):string {
     return json.map((book) => { return this.formatter.format(book) }).join("\n")
   }
 }
@@ -71,7 +71,7 @@ console.log('---');
 ★継承 < コンポジション
 
 [構造の把握しやすさ]
-★継承 < コンポジション
+コンポジション < ★継承
 
 [クラスを実装する上での影響範囲の見えやすさ]
 継承 < ★コンポジション
