@@ -1,5 +1,5 @@
 // Mutableなクラス
-class MutableItem {
+class MutableLabelGenerator {
   private name:string
   private labelLength:number
   
@@ -42,7 +42,7 @@ class MutableItem {
 }
 
 // Immutableなクラス
-class ImmutableItem {
+class ImmutableLabelGenerator {
   private name:string
   
   constructor(name: string) {
@@ -70,9 +70,9 @@ class ImmutableItem {
 }
 
 {
-  console.log('# MutableItem')
+  console.log('# MutableLabelGenerator')
 
-  const lemonade = new MutableItem('レモネード')
+  const lemonade = new MutableLabelGenerator('レモネード')
   console.log(lemonade.getName())
   console.log(lemonade.generateLabel())
   
@@ -86,13 +86,13 @@ class ImmutableItem {
 }
 
 {
-  console.log('\n# ImmutableItem')
+  console.log('\n# ImmutableLabelGenerator')
 
-  const lemonade = new ImmutableItem('レモネード')
+  const lemonade = new ImmutableLabelGenerator('レモネード')
   console.log(lemonade.getName())
   console.log(lemonade.generateLabel(5))
 
-  const lemonadePlus = new ImmutableItem('レモネードプラス')
+  const lemonadePlus = new ImmutableLabelGenerator('レモネードプラス')
   console.log(lemonadePlus.getName())
   console.log(lemonadePlus.generateLabel(5))
 }
@@ -123,32 +123,36 @@ class UnfortunateItem {
 }
 
 {
-  console.log('\n# MutableItem')
+  console.log('\n# MutableLabelGenerator')
   let name = 'レモネード'
-  const lemonade = new MutableItem(name)
+  const lemonade = new MutableLabelGenerator(name)
   console.log(lemonade.getName())
 
-  name = 'コークハイ'
+  // name = 'コークハイ' 
+  // 動画では上記でしたが、下記のような処理でも文字列nameはImmutableなので
+  // 結果は変わりません
+  name = name.concat('アルファ！')
   console.log(lemonade.getName())
 }
+
 
 /*
 # Immutableの特徴
 
 ○ クラスがシンプルになる
-- クラス単体のテストがやりやすくなる。内部条件を持たないのでIN-OUTを一対に考えられる
-- バグの原因が絞りやすい。意図しない値が返ってくる場合には生成した時点でおかしい
+  - クラス単体のテストがやりやすくなる。内部条件を持たないのでIN-OUTを一対に考えられる
+  - バグの原因が絞りやすい。意図しない値が返ってくる場合には生成した時点でおかしい
 
 ○ スレッドセーフ
-- マルチスレッドのプログラミングでバグを生みにくい
-- データの変更を阻止するコードが不要になる
+  - マルチスレッドのプログラミングでバグを生みにくい
+  - データの変更を阻止するコードが不要になる
 
 ○ 参照を共有しやすい
-- 意図しない原因で変更される可能性が無いので複数のオブジェクトで共有しても問題が起こりにくい
+  - 意図しない原因で変更される可能性が無いので複数のオブジェクトで共有しても問題が起こりにくい
 
 × 変更時にはインスタンスの生成を伴う
-変更したい場合には新しいインスタンスを作成するので、変更が多い場合には生成のコストを考える必要がある
-（ですが、最近の環境でインスタンス生成のコストが大きな問題になる事はかなり減っていると思います）
+  変更したい場合には新しいインスタンスを作成するので、変更が多い場合には生成のコストを考える必要がある
+  （ですが、最近の環境でインスタンス生成のコストが大きな問題になる事はかなり減っていると思います）
 
 大抵はメリットがデメリットを上回るはずです
 */
