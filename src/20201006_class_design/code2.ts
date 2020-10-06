@@ -10,6 +10,7 @@
     score: number;
   }
 
+  // 読み込んでくるインターフェース
   interface RecordReader {
     read(): Promise<TestRecord[]>
   }
