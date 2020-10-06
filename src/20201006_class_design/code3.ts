@@ -15,17 +15,15 @@
   }
 
   class ScoreCalculator {
-    private recordReaders: RecordReader[] = []
+    private recordReader: RecordReader
 
-    addReader(recordReader: RecordReader) {
-      this.recordReaders.push(recordReader)
+    constructor(recordReader: RecordReader) {
+      this.recordReader = recordReader
     }
 
     async calc() {
       const records: TestRecord[] = []
-      await Promise.all(this.recordReaders.map(async (recordReader) => {
-        await recordReader.read(records)
-      }))
+      this.recordReader.read(records)
 
       // recordsの内容をもとに、必要な各種計算をしています
       const memberCount = records.length
@@ -38,6 +36,21 @@
         records,
         scoreAverage
       }
+    }
+  }
+
+  // Compositeパターンで複数のRecordReaderを格納して自分もRecordReaderとして振舞うクラス
+  class CompositeRecordReader {
+    private recordReaders: RecordReader[] = []
+
+    addReader(recordReader: RecordReader) {
+      this.recordReaders.push(recordReader)
+    }
+
+    async read(records: TestRecord[]) {
+      await Promise.all(this.recordReaders.map(async (recordReader) => {
+        await recordReader.read(records)
+      }))
     }
   }
 
@@ -115,9 +128,7 @@
 
     class TestScoreCalculatorFactory {
       create(): ScoreCalculator {
-        const calculator = new ScoreCalculator()
-        calculator.addReader(new DummyScoreReader())
-        return calculator
+        return new ScoreCalculator(new DummyScoreReader())
       }
     }
 
@@ -139,22 +150,24 @@
     class ProdScoreCalculatorFactory {
       create(): ScoreCalculator {
         // 例えばこの中身の処理の元データが設定ファイルなどから読まれるように
-        // 作るなどするとさらに柔軟なシステムにできます。今回はここまでにします。
-        const calculator = new ScoreCalculator()
-        calculator.addReader(new JsonReader())
+        // 作るなどするとさらに柔軟なシステムにできます。
+        // DIコンテナから作成されるようにする仕様もアリかもしれませんね。
+        // 今回はここまでにします。
+        const recordReader = new CompositeRecordReader()
+        recordReader.addReader(new JsonReader())
 
         const csvReader = new CsvReader()
-        calculator.addReader(new CsvReaderAdapter('file1-1.csv', csvReader))
-        calculator.addReader(new CsvReaderAdapter('file1-2.csv', csvReader))
+        recordReader.addReader(new CsvReaderAdapter('file1-1.csv', csvReader))
+        recordReader.addReader(new CsvReaderAdapter('file1-2.csv', csvReader))
+
+        const calculator = new ScoreCalculator(recordReader)
         return calculator
       }
     }
 
-
     // こちらは本番で動かす想定の動き
     async function sample() {
       const calculator = new ProdScoreCalculatorFactory().create()
-
       const totalResult = await calculator.calc()
       console.log(totalResult)
     }
