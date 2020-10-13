@@ -23,7 +23,7 @@
 
     async calc() {
       const records: TestRecord[] = []
-      this.recordReader.read(records)
+      await this.recordReader.read(records)
 
       // recordsの内容をもとに、必要な各種計算をしています
       const memberCount = records.length
