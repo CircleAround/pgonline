@@ -40,7 +40,7 @@
   }
 
   // Compositeパターンで複数のRecordReaderを格納して自分もRecordReaderとして振舞うクラス
-  class CompositeRecordReader {
+  class CompositeRecordReader implements RecordReader {
     private recordReaders: RecordReader[] = []
 
     addReader(recordReader: RecordReader) {
