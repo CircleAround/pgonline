@@ -1,157 +1,70 @@
-//  Before 
-// interface MusicList {
-//   getAll(): Array<Music>
-//   search(word: string, type: string): Array<Music>
-// }
-
-// interface Music {
-//   title: string
-//   artist: string
-// }
-
-// class MusicList implements MusicList {
-//   musics: Array<Music>
-
-//   constructor(musics: Array<Music>) {
-//     this.musics = musics
-//   }
-
-//   getAll() {
-//     return this.musics
-//   }
-
-//   search(word: string, type: string) {
-//     switch (type) {
-//       case 'title':
-//         return this.musics.filter((music)=> {
-//           return music.title === word
-//         })
-//       case 'artist':
-//         return this.musics.filter((music)=> {
-//           return music.artist === word
-//         })
-//       default:
-//         throw new Error("unknown type"); 
-//     }
-//   }
-// }
-
-// const musicList = new MusicList([
-//   {title: "ズルい女", artist: "シャ乱Q"},
-//   {title: "ロビンソン", artist: "スピッツ"},
-//   {title: "愛の言霊", artist: "サザンオールスターズ"},
-//   {title: "みんなのうた", artist: "サザンオールスターズ"}
-// ])
-
-// let results = musicList.search('ズルい女', "title")
-// console.log('## タイトル検索')
-// results.forEach((result)=>{
-//   console.log(result.title, result.artist)
-//   console.log('----------------')
-// })
-
-// results = musicList.search('サザンオールスターズ', "artist")
-// console.log('## アーティスト検索')
-// results.forEach((result)=>{
-//   console.log(result.title, result.artist)
-//   console.log('----------------')
-// })
-
-// After
-interface MusicList {
-  getAll(): Array<Music>
-  search(text: string): Array<Music>
-  setSearcher(searcher: Searcher)
-}
-
 interface Music {
   title: string
   artist: string
 }
 
-interface Searcher {
-  search(musics: Array<Music>, word: string): Array<Music>
+interface Sorter {
+  sort(musics: Music[]): Music[]
 }
 
-class ArtistSearcher implements Searcher {
-  search(musics: Array<Music>, word: string) {
-    return musics.filter((music)=> {
-      return music.artist === word
+class RandumSorter implements Sorter {
+  sort(musics: Music[]) {
+    return musics.sort((current, next) => {
+      return Math.random() > 0.5 ? 1 : -1
     })
   }
 }
 
-class TitleSearcher implements Searcher {
-  search(musics: Array<Music>, word: string) {
-    return musics.filter((music)=> {
-      return music.title === word
+class ArtistSorter implements Sorter {
+  sort(musics: Music[]) {
+    return musics.sort((current, next) => {
+      return current.artist > next.artist ? 1 : -1
     })
+  } 
+}
+
+interface Exporter {
+  export(musics: Music[]): any
+}
+
+class JsonExporter implements Exporter {
+  export(musics: Music[]) {
+    return JSON.stringify(musics)
   }
 }
 
-class MultipleSearcher implements Searcher {
-  search(musics: Array<Music>, word: string) {
-    let results = []
-    results.push(new TitleSearcher().search(musics, word))
-    results.push(new ArtistSearcher().search(musics, word))
-    return [].concat(...results)
+class CsvExporter implements Exporter {
+  export(musics: Music[]) {
+    return musics.map((music) => {
+      return `${music.title}, ${music.artist}`
+    }).join('\n')
   }
 }
 
-class MusicList implements MusicList {
-  musics: Array<Music>
-  searcher: Searcher
+class MusicList {
+  exporter: Exporter
+  sorter: Sorter
 
-  constructor(musics: Array<Music>) {
-    this.musics = musics
+  constructor(sorter: Sorter, exporter: Exporter) {
+    this.exporter = exporter
+    this.sorter = sorter
   }
 
-  setSearcher(searcher: Searcher) {
-    this.searcher = searcher
-  }
-
-  getAll() {
-    return this.musics
-  }
-
-  search(word: string) {
-    return this.searcher.search(this.musics, word)
+  export(musics: Music[]) {
+    const sorted = this.sorter.sort(musics)
+    return this.exporter.export(sorted)
   }
 }
 
-const musicList = new MusicList([
+const data = [
   {title: "ズルい女", artist: "シャ乱Q"},
   {title: "ロビンソン", artist: "スピッツ"},
   {title: "愛の言霊", artist: "サザンオールスターズ"},
   {title: "みんなのうた", artist: "サザンオールスターズ"}
-])
-
-
-musicList.setSearcher(new TitleSearcher())
-let results = musicList.search("ロビンソン")
-console.log('## タイトル検索')
-results.forEach((result)=>{
-  console.log(result.title, result.artist)
-  console.log('----------------')
-})
-
-musicList.setSearcher(new ArtistSearcher())
-results = musicList.search("サザンオールスターズ")
-console.log('## アーティスト検索')
-results.forEach((result)=>{
-  console.log(result.title, result.artist)
-  console.log('----------------')
-})
-
-console.log('## 複合検索')
-musicList.setSearcher(new MultipleSearcher())
-results = musicList.search("サザンオールスターズ")
-results.forEach((result)=>{
-  console.log(result.title, result.artist)
-  console.log('----------------')
-})
-results = musicList.search("ロビンソン")
-results.forEach((result)=>{
-  console.log(result.title, result.artist)
-  console.log('----------------')
-})
+]
+// const sorter = new ArtistSorter
+const sorter = new RandumSorter
+// const exporter = new JsonExporter
+const exporter = new CsvExporter 
+const musicList = new MusicList(sorter, exporter)
+console.log(musicList.export(data))
