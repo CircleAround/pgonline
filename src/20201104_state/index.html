@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="main.js"></script>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+
+        .stopwatch {
+          max-width: 500px;
+          border: solid 1px black;
+          margin: 10px auto;
+        }
+
+        .display{
+          font-size: 200%;
+          background-color: rgb(167 186 255);
+          padding-left: 20px;
+        }
+
+        ul{
+            list-style: none;
+            margin: 20px;
+            padding: 0;
+        }
+
+        .buttons{
+            padding: 20px;
+        }
+
+        .buttons button{
+            font-size: 150%;
+            width: 8em;
+        }
+
+        .laps li{
+            border-bottom: solid 1px lightgray;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="stopwatch">
+        <div class="display"></div>
+        <div class="buttons">
+            <button class="main"></button>
+            <button class="sub"></button>
+        </div>
+        <hr>
+        <ul class="laps"></ul>
+    </div>
+</body>
+</html>
+
