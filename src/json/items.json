@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Item1",
+    "price": 3000,
+    "evaluationAvg": 3
+  },
+  {
+    "name": "Item2",
+    "price": 5000,
+    "evaluationAvg": 2
+  },
+  {
+    "name": "Item3",
+    "price": 4000,
+    "evaluationAvg": 5
+  },
+  {
+    "name": "Item4",
+    "price": 3000,
+    "evaluationAvg": 5
+  },
+  {
+    "name": "Item5",
+    "price": 1000,
+    "evaluationAvg": 1
+  }
+]
