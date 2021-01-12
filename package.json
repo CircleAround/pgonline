@@ -1,0 +1,27 @@
+{
+  "name": "pgonline",
+  "version": "1.0.0",
+  "description": "[プログラミング相談所オンライン](https://www.youtube.com/channel/UCMdMUJ8NfUi01oTNK03lOoQ/) で利用したサンプルコードを保存しておく場所です。Youtubeの動画と共にソースコードを確認するなどして、学習に役立ててください。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/http-server/bin/http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CircleAround/pgonline.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CircleAround/pgonline/issues"
+  },
+  "homepage": "https://github.com/CircleAround/pgonline#readme",
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
