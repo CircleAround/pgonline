@@ -1,0 +1,39 @@
+<html>
+<head>
+  <meta charset="UTF-8"></meta>
+  <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+  <h1>floatで左寄せ</h1>
+  <div id="float-side">
+    <div class="left-sidebar1">
+      これは左に寄ります1
+    </div>
+    <div class="left-sidebar2">
+      これは左に寄ります2。右側をいい感じに伸ばすのは少し難しくなります。
+      幅を短くしたりすると段落ちが発生したりします。
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <h1>positionで左寄せ</h1>
+  <div id="position-side">
+    <div class="left-sidebar1">
+      これは左に寄ります1
+    </div>
+    <div class="left-sidebar2">
+      これは左に寄ります2。左の空きはここではmarginで指定しています。
+      position: absoluteを指定された要素はその場に存在しない扱いなのでmarginを入れないと重なってしまいます。
+      幅を狭めても段落ちは発生しません。
+    </div>
+  </div>
+
+  <h1>バッジみたいにずらす</h1>
+  <div id="badge-style">
+    <div class="badge">1</div>
+    <div class="body">
+      これはテストです。
+    </div>
+  </div>
+</body>
+</html>

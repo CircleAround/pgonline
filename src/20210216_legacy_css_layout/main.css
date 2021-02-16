@@ -1,0 +1,67 @@
+.clear {
+  clear: both;
+}
+
+#float-side {
+  /* overflow: hidden; */
+
+  padding: 1em;
+  background-color: lightgreen;
+}
+
+#float-side .left-sidebar1{
+  float: left;
+  width: 100px;
+
+  background-color: lightcoral;
+  padding: 1em;
+}
+
+#float-side .left-sidebar2{
+  float: left;
+
+  background-color: lightblue;
+  padding: 1em;
+}
+
+#position-side {
+  position: relative;
+
+  padding: 1em;
+  background-color: lightgreen;
+}
+
+#position-side .left-sidebar1 {
+  position: absolute;
+  width: 100px;
+  left: 1em;
+  top: 1em;
+  bottom: 1em;
+
+  background-color: lightcoral;
+  padding: 1em;
+}
+
+#position-side .left-sidebar2{
+  margin-left: 120px;
+
+  background-color: lightblue;
+  padding: 1em;
+}
+
+#badge-style {
+  position: relative;
+  width: 100px;
+
+  padding: 1em;
+  background-color: lightgreen;
+}
+
+#badge-style .badge {
+  position: absolute;
+  right: -0.5em;
+  top: -0.5em;
+
+  padding: .2em .5em;
+  background-color: lightcoral;
+}
