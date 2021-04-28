@@ -1,3 +1,5 @@
 .idea
 .DS_Store
 node_modules/
+src/20210313_redis/node_modules
+src/20210327_babel/node_modules
